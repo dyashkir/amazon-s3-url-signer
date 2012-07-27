@@ -1,0 +1,21 @@
+{
+  "name": "amazon-S3-url-signer",
+  "version": "0.0.1",
+  "description": "Module to sign urls to allow access to resources in the S3",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dyashkir/amazon-S3-url-signer"
+  },
+  "keywords": [
+    "amazon",
+    "S3",
+    "url",
+    "signing"
+  ],
+  "author": "Dmytro Yashkir",
+  "license": "BSD"
+}
