@@ -1,5 +1,5 @@
 {
-  "name": "amazon-S3-url-signer",
+  "name": "amazon-s3-url-signer",
   "version": "0.0.1",
   "description": "Module to sign urls to allow access to resources in the S3",
   "main": "index.js",
