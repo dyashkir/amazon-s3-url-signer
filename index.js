@@ -13,7 +13,7 @@ exports.urlSigner = function(key, secret){
   };
 
   var url = function (fname, bucket) {
-    return 'http://'+ bucket + '.' + endpoint + '/' + fname;
+    return 'http://'+ bucket + '.' + endpoint + (fname[0] === '/'?'':'/') + fname;
   };
 
   return {
