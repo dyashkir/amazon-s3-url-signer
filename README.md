@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/dyashkir/amazon-s3-url-signer.png)](http://travis-ci.org/dyashkir/amazon-s3-url-signer)
 ##Amazon S3 url signer
 
 Module to sign urls to allow access to the private resources in the S3
