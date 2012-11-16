@@ -1,10 +1,11 @@
 var join = require('path').join;
 var crypto = require('crypto');
 
-exports.urlSigner = function(key, secret){
+exports.urlSigner = function(key, secret, options){
 
-  var endpoint = 's3.amazonaws.com';
-  var port = '80';
+  var endpoint = options.host || 's3.amazonaws.com';
+  var port = options.port || '80';
+  var protocol = options.protocol || 'http';
 
   var hmacSha1 = function (message) {
     return crypto.createHmac('sha1', secret)
@@ -13,7 +14,7 @@ exports.urlSigner = function(key, secret){
   };
 
   var url = function (fname, bucket) {
-    return 'http://'+ bucket + '.' + endpoint + (fname[0] === '/'?'':'/') + fname;
+    return protocol + '://'+ bucket + '.' + endpoint + (port != 80 ? ':' + port : '') + (fname[0] === '/'?'':'/') + fname;
   };
 
   return {
@@ -28,7 +29,7 @@ exports.urlSigner = function(key, secret){
 
       var hashed = hmacSha1(str);
 
-      var urlRet = url(fname, bucket) + 
+      var urlRet = url(fname, bucket) +
         '?Expires=' + epo +
         '&AWSAccessKeyId=' + key +
         '&Signature=' + encodeURIComponent(hashed);
@@ -37,5 +38,5 @@ exports.urlSigner = function(key, secret){
 
     }
   };
-  
+
 };
