@@ -24,7 +24,7 @@ exports.urlSigner = function(key, secret){
 
       var epo = Math.floor(expires.getTime()/1000);
 
-      var str = verb + '\n\n\n' + epo + '\n' + '/' + bucket + '/' + fname;
+      var str = verb + '\n\n\n' + epo + '\n' + '/' + bucket + (fname[0] === '/'?'':'/') + fname;
 
       var hashed = hmacSha1(str);
 
