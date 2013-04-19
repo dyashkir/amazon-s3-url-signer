@@ -38,17 +38,17 @@ Now we will generate an S3 URL, and push a file to it.
 
 The generated S3 url is:
 
-    http://my_bucket.mymachine.me:1234/toto.json?Expires=1352966881&AWSAccessKeyId=123&Signature=FDs%2Buf0hXskY1%2BUj4A7S4wHFx20%3D
+    http://mymachine.me:1234/my_bucket/toto.json?Expires=1352966881&AWSAccessKeyId=123&Signature=FDs%2Buf0hXskY1%2BUj4A7S4wHFx20%3D
 
 Now you can use this URL with curl
 
-    curl --upload-file package.json "http://my_bucket.mymachine.me:1234/toto.json?Expires=1352966881&AWSAccessKeyId=123&Signature=FDs%2Buf0hXskY1%2BUj4A7S4wHFx20%3D"
+    curl --upload-file package.json "http://mymachine.me:1234/my_bucket/toto.json?Expires=1352966881&AWSAccessKeyId=123&Signature=FDs%2Buf0hXskY1%2BUj4A7S4wHFx20%3D"
 
 Or with request
 
     var fs = require('fs');
     var request = require('request');
-    fs.createReadStream('file.json').pipe(request.put("http://my_bucket.mymachine.me:1234/toto.json?Expires=1352966881&AWSAccessKeyId=123&Signature=FDs%2Buf0hXskY1%2BUj4A7S4wHFx20%3D"))
+    fs.createReadStream('file.json').pipe(request.put("http://mymachine.me:1234/my_bucket/toto.json?Expires=1352966881&AWSAccessKeyId=123&Signature=FDs%2Buf0hXskY1%2BUj4A7S4wHFx20%3D"))
 
 Or with any http client you like :)
 
