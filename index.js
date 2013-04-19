@@ -14,7 +14,7 @@ exports.urlSigner = function(key, secret, options){
   };
 
   var url = function (fname, bucket) {
-    return protocol + '://'+ bucket + '.' + endpoint + (port != 80 ? ':' + port : '') + (fname[0] === '/'?'':'/') + fname;
+    return protocol + '://'+ endpoint + (port != 80 ? ':' + port : '') + '/' + bucket + (fname[0] === '/'?'':'/') + fname;
   };
 
   return {
