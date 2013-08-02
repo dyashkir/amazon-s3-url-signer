@@ -2,7 +2,7 @@ var join = require('path').join;
 var crypto = require('crypto');
 
 exports.urlSigner = function(key, secret, options){
-
+  options = options || {};
   var endpoint = options.host || 's3.amazonaws.com';
   var port = options.port || '80';
   var protocol = options.protocol || 'http';
