@@ -6,6 +6,7 @@ exports.urlSigner = function(key, secret, options){
   var endpoint = options.host || 's3.amazonaws.com';
   var port = options.port || '80';
   var protocol = options.protocol || 'http';
+  var subdomain = options.useSubdomain === true;
 
   var hmacSha1 = function (message) {
     return crypto.createHmac('sha1', secret)
@@ -14,7 +15,11 @@ exports.urlSigner = function(key, secret, options){
   };
 
   var url = function (fname, bucket) {
-    return protocol + '://'+ endpoint + (port != 80 ? ':' + port : '') + '/' + bucket + (fname[0] === '/'?'':'/') + fname;
+      if (subdomain) {
+        return protocol + '://'+ bucket + "." + endpoint + (port != 80 ? ':' + port : '') + (fname[0] === '/'?'':'/') + fname;
+      } else {
+        return protocol + '://'+ endpoint + (port != 80 ? ':' + port : '') + '/' + bucket + (fname[0] === '/'?'':'/') + fname;
+      }
   };
 
   return {
