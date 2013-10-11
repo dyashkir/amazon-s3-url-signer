@@ -30,12 +30,7 @@ exports.urlSigner = function(key, secret, options){
 
       var epo = Math.floor(expires.getTime()/1000);
 
-      var str;
-      if (subdomain) {
-        str = verb + '\n\n\n' + epo + '\n' + (fname[0] === '/'?'':'/') + fname;
-      } else {
-        str = verb + '\n\n\n' + epo + '\n' + '/' + bucket + (fname[0] === '/'?'':'/') + fname;
-      }
+      var str = verb + '\n\n\n' + epo + '\n' + '/' + bucket + (fname[0] === '/'?'':'/') + fname;
 
       var hashed = hmacSha1(str);
 
