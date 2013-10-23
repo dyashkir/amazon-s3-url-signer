@@ -2,6 +2,8 @@
 
 Module to sign urls to allow access to the private resources in the S3
 
+[![NPM](https://nodei.co/npm/amazon-s3-url-signer.png)](https://nodei.co/npm/amazon-s3-url-signer/)
+
 ###To install
 
     npm install amazon-s3-url-signer
