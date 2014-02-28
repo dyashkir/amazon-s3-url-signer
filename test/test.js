@@ -19,21 +19,26 @@ describe('amazon-s3-url-signer', function(){
     });
 
     //start fake s3
-    /*console.dir('-r test/s3_files -p 1234'.split(' '))
     fakes = spawn('fakes3', '-r test/s3_files -p 1234'.split(' '))
     
     fakes.stdout.on('data', function (data) {
-      console.log('stdout: ' + data);
+      console.log(''+ data);
     });
     fakes.on('exit', function (code) {
       console.log('child process exited with code ' + code);
     });
-  */  
-    done()
+    fakes.stderr.on('data', function (data) {
+      var log_line = data + '';
+      console.log(log_line);
+      if (log_line.match(/WEBrick::HTTPServer#start/)){
+        done();
+      }
+    });
+
   })
 
   after(function(done){
-    //fakes.kill();
+    fakes.kill('SIGKILL');//normal sigterm does not work on fakes
     done();
   })
 
