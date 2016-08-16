@@ -16,25 +16,26 @@ exports.urlSigner = function(key, secret, options){
 
   var url = function (fname, bucket) {
       if (subdomain) {
-        return protocol + '://'+ bucket + "." + endpoint + (port != 80 ? ':' + port : '') + (fname[0] === '/'?'':'/') + fname;
+        return protocol + '://'+ bucket + "." + endpoint + (port != 80 ? ':' + port : '') + fname;
       } else {
-        return protocol + '://'+ endpoint + (port != 80 ? ':' + port : '') + '/' + bucket + (fname[0] === '/'?'':'/') + fname;
+        return protocol + '://'+ endpoint + (port != 80 ? ':' + port : '') + '/' + bucket + fname;
       }
   };
 
   return {
     getUrl : function(verb, fname, bucket, expiresInMinutes){
       var expires = new Date();
+      var encodedName = (fname[0] === '/'?'':'/') + encodeURIComponent(fname);
 
       expires.setMinutes(expires.getMinutes() + expiresInMinutes);
 
       var epo = Math.floor(expires.getTime()/1000);
 
-      var str = verb + '\n\n\n' + epo + '\n' + '/' + bucket + (fname[0] === '/'?'':'/') + fname;
+      var str = verb + '\n\n\n' + epo + '\n' + '/' + bucket + encodedName;
 
       var hashed = hmacSha1(str);
 
-      var urlRet = url(fname, bucket) +
+      var urlRet = url(encodedName, bucket) +
         '?Expires=' + epo +
         '&AWSAccessKeyId=' + key +
         '&Signature=' + encodeURIComponent(hashed);
