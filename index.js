@@ -15,10 +15,11 @@ exports.urlSigner = function(key, secret, options){
   };
 
   var url = function (fname, bucket) {
+      var portstr = ((port === '') || ((protocol === 'http') && (port == 80)) || ((protocol === 'https') && (port == 443))) ? '' : ':'+port;
       if (subdomain) {
-        return protocol + '://'+ bucket + "." + endpoint + (port != 80 ? ':' + port : '') + (fname[0] === '/'?'':'/') + fname;
+        return protocol + '://'+ bucket + "." + endpoint + portstr + (fname[0] === '/'?'':'/') + fname;
       } else {
-        return protocol + '://'+ endpoint + (port != 80 ? ':' + port : '') + '/' + bucket + (fname[0] === '/'?'':'/') + fname;
+        return protocol + '://'+ endpoint + portstr + '/' + bucket + (fname[0] === '/'?'':'/') + fname;
       }
   };
 
