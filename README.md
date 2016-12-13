@@ -16,7 +16,7 @@ Module to sign urls to allow access to the private resources in the S3
     var bucket2 = sig.urlSigner('my key2', 'my secret2');
     
     var url1 = bucket1.getUrl('GET', 'somefile.png', 'mybucket', 10); //url expires in 10 minutes
-    var url2 = bucket2.getUrl('PUT', '/somedir/somefile.png', 'mybucketonotheraccount', 10); //url expires in 100 minutes
+    var url2 = bucket2.getUrl('PUT', '/somedir/somefile.png', 'mybucketonotheraccount', 100); //url expires in 100 minutes
 
 ###Local test
 

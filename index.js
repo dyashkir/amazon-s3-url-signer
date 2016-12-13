@@ -15,22 +15,27 @@ exports.urlSigner = function(key, secret, options){
   };
 
   var url = function (fname, bucket) {
+      var portstr = ((port === '') || ((protocol === 'http') && (port == 80)) || ((protocol === 'https') && (port == 443))) ? '' : ':'+port;
       if (subdomain) {
-        return protocol + '://'+ bucket + "." + endpoint + (port != 80 ? ':' + port : '') + (fname[0] === '/'?'':'/') + fname;
+        return protocol + '://'+ bucket + "." + endpoint + portstr + (fname[0] === '/'?'':'/') + fname;
       } else {
-        return protocol + '://'+ endpoint + (port != 80 ? ':' + port : '') + '/' + bucket + (fname[0] === '/'?'':'/') + fname;
+        return protocol + '://'+ endpoint + portstr + '/' + bucket + (fname[0] === '/'?'':'/') + fname;
       }
   };
 
   return {
-    getUrl : function(verb, fname, bucket, expiresInMinutes){
+    getUrl : function(verb, fname, bucket, expiresInMinutes, contentType){
       var expires = new Date();
 
       expires.setMinutes(expires.getMinutes() + expiresInMinutes);
 
       var epo = Math.floor(expires.getTime()/1000);
 
-      var str = verb + '\n\n\n' + epo + '\n' + '/' + bucket + (fname[0] === '/'?'':'/') + fname;
+      var str = verb + '\n\n';
+      if (contentType) {
+        str = str+contentType;
+      }
+      str = str + '\n' + epo + '\n' + '/' + bucket + (fname[0] === '/'?'':'/') + fname;
 
       var hashed = hmacSha1(str);
 
