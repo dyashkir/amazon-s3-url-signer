@@ -18,6 +18,12 @@ Module to sign urls to allow access to the private resources in the S3
     var url1 = bucket1.getUrl('GET', 'somefile.png', 'mybucket', 10); //url expires in 10 minutes
     var url2 = bucket2.getUrl('PUT', '/somedir/somefile.png', 'mybucketonotheraccount', 100); //url expires in 100 minutes
 
+#### For other regions 
+
+    var bucket = sig.urlSigner(accessKeyId, secretAccessKey, {
+      host : 's3-eu-west-1.amazonaws.com'
+    });
+
 ###Local test
 
 If you want to test without an s3 acount you can use <https://github.com/jubos/fake-s3>.
