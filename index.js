@@ -26,6 +26,7 @@ exports.urlSigner = function(key, secret, options){
   return {
     getUrl : function(verb, fname, bucket, expiresInMinutes, contentType){
       var expires = new Date();
+      fname = encodeURIComponent(fname);
 
       expires.setMinutes(expires.getMinutes() + expiresInMinutes);
 
