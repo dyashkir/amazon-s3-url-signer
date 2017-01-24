@@ -7,6 +7,7 @@ exports.urlSigner = function(key, secret, options){
   var port = options.port || '80';
   var protocol = options.protocol || 'http';
   var subdomain = options.useSubdomain === true;
+  var escapeComponents = options.escapeComponents || false;
 
   var hmacSha1 = function (message) {
     return crypto.createHmac('sha1', secret)
@@ -22,6 +23,10 @@ exports.urlSigner = function(key, secret, options){
         return protocol + '://'+ endpoint + portstr + '/' + bucket + (fname[0] === '/'?'':'/') + fname;
       }
   };
+  
+  var escapeForS3URL = function(str) {
+    return encodeURIComponent(str).replace(/'/g);
+  }
 
   return {
     getUrl : function(verb, fname, bucket, expiresInMinutes, contentType){
@@ -38,7 +43,10 @@ exports.urlSigner = function(key, secret, options){
       str = str + '\n' + epo + '\n' + '/' + bucket + (fname[0] === '/'?'':'/') + fname;
 
       var hashed = hmacSha1(str);
-
+      if (escape) {
+        key = escapeForS3URL(key);
+        bucket = escapeForS3URL(bucket);
+      }
       var urlRet = url(fname, bucket) +
         '?Expires=' + epo +
         '&AWSAccessKeyId=' + key +
