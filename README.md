@@ -10,7 +10,7 @@ Module to sign urls to allow access to the private resources in the S3
 
 ###Use example
 
-    var sig= require('amazon-s3-url-signer');
+    var sig = require('amazon-s3-url-signer');
 
     var bucket1 = sig.urlSigner('my key', 'my secret');
     var bucket2 = sig.urlSigner('my key2', 'my secret2');
